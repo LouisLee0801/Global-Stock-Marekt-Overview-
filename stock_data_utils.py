@@ -675,9 +675,13 @@ def get_detailed_stock_profile(symbol, name, sector, change_pct=None, turnover=N
         
     if profile:
         # Preserve the high-density curated company profiles (e.g. RPA for UiPath, Cybersecurity for CrowdStrike)
-        # instead of overwriting them with generic synthesized templates.
+        # BUT intercept and dynamically fetch LIVE Google News for this specific company so it's never a template!
+        try:
+            live_news = generate_stock_news(symbol, name, sector)
+            profile["近期題材與新聞"] = live_news
+        except:
+            pass
         return profile
-        
     # 2. Dynamic Real-time Generator & Caching System
     try:
         import yfinance as yf

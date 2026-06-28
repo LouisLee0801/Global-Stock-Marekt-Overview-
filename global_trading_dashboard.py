@@ -301,7 +301,7 @@ def get_market_cache_key(market_type: str) -> str:
     return f"{market_type}_{boundary.strftime('%Y%m%d_%H%M%S')}"
 
 # ----------------- DATA FETCHERS & SCREENERS -----------------
-@st.cache_data
+@st.cache_data(ttl=300)
 def load_asian_metadata():
     """Loads metadata for 300 Asian stocks from the pre-populated JSON cache."""
     if os.path.exists(METADATA_CACHE_FILE):
@@ -797,7 +797,8 @@ def fetch_us_market_screener_rankings(screener_type: str, count: int, cache_key:
                 sector = get_granular_industry(symbol, sector)
                 
                 chinese_name = get_chinese_display_name(symbol, english_name)
-                news = generate_stock_news(symbol, english_name, sector)
+                # News fetch removed for performance
+                news = "點擊股票列解鎖實時新聞研報..."
                 
                 records.append({
                     "代號": symbol,
@@ -862,7 +863,8 @@ def compute_market_tables(df_download, tickers, metadata_dict):
             sector = get_granular_industry(t, sector)
             
             chinese_name = get_chinese_display_name(t, english_name)
-            news = generate_stock_news(t, english_name, sector)
+            # Live news fetch removed for performance; will populate on click
+            news = '點擊股票列解鎖實時新聞研報...'
             
             records.append({
                 "代號": t,
@@ -1028,8 +1030,8 @@ def get_cached_screener_results(screener_tickers: list, screener_meta: dict, cac
                 dist_high_pct = (1 - ratio_val) * 100
                 ma_conv_pct = (conv_val - 1) * 100
                 
-                # Dynamic News generation
-                news = generate_stock_news(t, english_name, sector)
+                # Skip live news fetch here for speed; it will be populated dynamically on display
+                news = "點擊股票列解鎖實時新聞研報..."
                 
                 screener_results.append({
                     "代號": t,
@@ -1356,7 +1358,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Render data update time status globally (visible on every tab)
-current_time_str = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+tw_tz = datetime.timezone(datetime.timedelta(hours=8))
+current_time_str = datetime.datetime.now(tw_tz).strftime("%Y/%m/%d %H:%M:%S")
 st.markdown(f"""
 <div style='display: flex; justify-content: space-between; align-items: center; background: rgba(0, 255, 204, 0.04); border: 1px solid rgba(0, 255, 204, 0.15); padding: 0.6rem 1.2rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.88rem; font-family: "Outfit", sans-serif;'>
     <div style='color: #cbd5e1;'>
