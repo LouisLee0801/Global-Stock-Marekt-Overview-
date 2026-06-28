@@ -10,7 +10,8 @@ import re
 import os
 
 # ----------------- OFFLINE DATABASE LOADER (O(1) ZERO-LATENCY) -----------------
-DB_FILE = r"C:\Users\a0919\.gemini\antigravity\scratch\global_trading_dashboard\stock_profiles_db.json"
+# Dynamic cross-platform path handling for DB_FILE
+DB_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "stock_profiles_db.json")
 PROFILES_DB = {}
 if os.path.exists(DB_FILE):
     try:

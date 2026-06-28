@@ -278,7 +278,8 @@ def color_price_background(row):
     return styles
 
 # ----------------- PATH & CACHE DIRECTORIES -----------------
-CACHE_DIR = "C:\\Users\\a0919\\.gemini\\antigravity\\scratch\\global_trading_dashboard"
+# Dynamic path handling to ensure compatibility across local Windows and Streamlit Cloud (Linux)
+CACHE_DIR = os.path.dirname(os.path.abspath(__file__))
 METADATA_CACHE_FILE = os.path.join(CACHE_DIR, "ticker_metadata_cache.json")
 
 # ----------------- CACHE KEY COMPUTATION -----------------
