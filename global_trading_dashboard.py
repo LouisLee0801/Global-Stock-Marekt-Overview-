@@ -1294,7 +1294,7 @@ def precalculate_all_market_movers(us_cache_key: str, asia_cache_key: str):
         pass
         
     # 2. Asian Markets (JP, CN, KR)
-    asian_meta = load_asian_metadata()
+    asian_meta = load_asian_metadata_v2()
     if asian_meta:
         all_cached_tickers = list(asian_meta.keys())
         
