@@ -302,14 +302,15 @@ def get_market_cache_key(market_type: str) -> str:
 
 # ----------------- DATA FETCHERS & SCREENERS -----------------
 @st.cache_data(ttl=300)
-def load_asian_metadata():
+def load_asian_metadata_v2():
     """Loads metadata for 300 Asian stocks from the pre-populated JSON cache."""
+    cache_busting_variable = True # Force Streamlit to re-hash the function body
     if os.path.exists(METADATA_CACHE_FILE):
         try:
             with open(METADATA_CACHE_FILE, "r", encoding="utf-8") as f:
                 return json.load(f)
         except Exception as e:
-            st.error(f"載入亞洲個股元數據快取失敗: {e}")
+            st.error(f"讀取亞洲快取失敗: {e}")
     return {}
 
 @st.cache_data
@@ -1613,7 +1614,7 @@ with tab1:
         )
         
         # Load pre-populated Asian metadata cache
-        asian_meta = load_asian_metadata()
+        asian_meta = load_asian_metadata_v2()
         
         # Parse tickers based on market
         all_cached_tickers = list(asian_meta.keys())
