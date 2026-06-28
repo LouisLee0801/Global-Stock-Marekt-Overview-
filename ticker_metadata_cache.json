@@ -1,0 +1,554 @@
+{
+  "000001.SZ": {
+    "name": "平安銀行",
+    "sector": "Chinese Equities"
+  },
+  "000002.SZ": {
+    "name": "萬科A",
+    "sector": "Chinese Equities"
+  },
+  "000063.SZ": {
+    "name": "中興通訊",
+    "sector": "Chinese Equities"
+  },
+  "000100.SZ": {
+    "name": "TCL科技",
+    "sector": "Chinese Equities"
+  },
+  "000333.SZ": {
+    "name": "美的集團",
+    "sector": "Chinese Equities"
+  },
+  "000425.SZ": {
+    "name": "徐工機械",
+    "sector": "Chinese Equities"
+  },
+  "000568.SZ": {
+    "name": "瀘州老窖",
+    "sector": "Chinese Equities"
+  },
+  "000625.SZ": {
+    "name": "長安汽車",
+    "sector": "Chinese Equities"
+  },
+  "000651.SZ": {
+    "name": "格力電器",
+    "sector": "Chinese Equities"
+  },
+  "000725.SZ": {
+    "name": "京東方A",
+    "sector": "Chinese Equities"
+  },
+  "000768.SZ": {
+    "name": "中航西飛",
+    "sector": "Chinese Equities"
+  },
+  "000858.SZ": {
+    "name": "五糧液",
+    "sector": "Chinese Equities"
+  },
+  "000963.SZ": {
+    "name": "華東醫藥",
+    "sector": "Chinese Equities"
+  },
+  "000977.SZ": {
+    "name": "浪潮信息",
+    "sector": "Chinese Equities"
+  },
+  "002007.SZ": {
+    "name": "華蘭生物",
+    "sector": "Chinese Equities"
+  },
+  "002027.SZ": {
+    "name": "分眾傳媒",
+    "sector": "Chinese Equities"
+  },
+  "002142.SZ": {
+    "name": "寧波銀行",
+    "sector": "Chinese Equities"
+  },
+  "002230.SZ": {
+    "name": "科大訊飛",
+    "sector": "Chinese Equities"
+  },
+  "002352.SZ": {
+    "name": "順豐控股",
+    "sector": "Chinese Equities"
+  },
+  "002371.SZ": {
+    "name": "北方華創",
+    "sector": "Chinese Equities"
+  },
+  "002415.SZ": {
+    "name": "海康威視",
+    "sector": "Chinese Equities"
+  },
+  "002460.SZ": {
+    "name": "贛鋒鋰業",
+    "sector": "Chinese Equities"
+  },
+  "002463.SZ": {
+    "name": "滬電股份",
+    "sector": "Chinese Equities"
+  },
+  "002466.SZ": {
+    "name": "天齊鋰業",
+    "sector": "Chinese Equities"
+  },
+  "002475.SZ": {
+    "name": "立訊精密",
+    "sector": "Chinese Equities"
+  },
+  "002594.SZ": {
+    "name": "比亞迪",
+    "sector": "Chinese Equities"
+  },
+  "002714.SZ": {
+    "name": "牧原股份",
+    "sector": "Chinese Equities"
+  },
+  "300015.SZ": {
+    "name": "愛爾眼科",
+    "sector": "Chinese Equities"
+  },
+  "300059.SZ": {
+    "name": "東方財富",
+    "sector": "Chinese Equities"
+  },
+  "300124.SZ": {
+    "name": "匯川技術",
+    "sector": "Chinese Equities"
+  },
+  "300274.SZ": {
+    "name": "陽光電源",
+    "sector": "Chinese Equities"
+  },
+  "300408.SZ": {
+    "name": "三環集團",
+    "sector": "Chinese Equities"
+  },
+  "300498.SZ": {
+    "name": "溫氏股份",
+    "sector": "Chinese Equities"
+  },
+  "300750.SZ": {
+    "name": "寧德時代",
+    "sector": "Chinese Equities"
+  },
+  "300760.SZ": {
+    "name": "邁瑞醫療",
+    "sector": "Chinese Equities"
+  },
+  "600011.SS": {
+    "name": "華能國際",
+    "sector": "Chinese Equities"
+  },
+  "600016.SS": {
+    "name": "民生銀行",
+    "sector": "Chinese Equities"
+  },
+  "600019.SS": {
+    "name": "寶鋼股份",
+    "sector": "Chinese Equities"
+  },
+  "600025.SS": {
+    "name": "華能水電",
+    "sector": "Chinese Equities"
+  },
+  "600028.SS": {
+    "name": "中國石化",
+    "sector": "Chinese Equities"
+  },
+  "600030.SS": {
+    "name": "中信證券",
+    "sector": "Chinese Equities"
+  },
+  "600031.SS": {
+    "name": "三一重工",
+    "sector": "Chinese Equities"
+  },
+  "600036.SS": {
+    "name": "招商銀行",
+    "sector": "Chinese Equities"
+  },
+  "600048.SS": {
+    "name": "保利發展",
+    "sector": "Chinese Equities"
+  },
+  "600050.SS": {
+    "name": "中國聯通",
+    "sector": "Chinese Equities"
+  },
+  "600104.SS": {
+    "name": "上汽集團",
+    "sector": "Chinese Equities"
+  },
+  "600111.SS": {
+    "name": "北方稀土",
+    "sector": "Chinese Equities"
+  },
+  "600115.SS": {
+    "name": "中國東航",
+    "sector": "Chinese Equities"
+  },
+  "600150.SS": {
+    "name": "中國船舶",
+    "sector": "Chinese Equities"
+  },
+  "600196.SS": {
+    "name": "復星醫藥",
+    "sector": "Chinese Equities"
+  },
+  "600276.SS": {
+    "name": "恆瑞醫藥",
+    "sector": "Chinese Equities"
+  },
+  "600309.SS": {
+    "name": "萬華化學",
+    "sector": "Chinese Equities"
+  },
+  "600438.SS": {
+    "name": "通威股份",
+    "sector": "Chinese Equities"
+  },
+  "600519.SS": {
+    "name": "貴州茅台",
+    "sector": "Chinese Equities"
+  },
+  "600547.SS": {
+    "name": "山東黃金",
+    "sector": "Chinese Equities"
+  },
+  "600585.SS": {
+    "name": "海螺水泥",
+    "sector": "Chinese Equities"
+  },
+  "600690.SS": {
+    "name": "海爾智家",
+    "sector": "Chinese Equities"
+  },
+  "600808.SS": {
+    "name": "馬鋼股份",
+    "sector": "Chinese Equities"
+  },
+  "600809.SS": {
+    "name": "山西汾酒",
+    "sector": "Chinese Equities"
+  },
+  "600837.SS": {
+    "name": "海通證券",
+    "sector": "Chinese Equities"
+  },
+  "600887.SS": {
+    "name": "伊利股份",
+    "sector": "Chinese Equities"
+  },
+  "600900.SS": {
+    "name": "長江電力",
+    "sector": "Chinese Equities"
+  },
+  "600905.SS": {
+    "name": "三峽能源",
+    "sector": "Chinese Equities"
+  },
+  "600941.SS": {
+    "name": "中國移動",
+    "sector": "Chinese Equities"
+  },
+  "601006.SS": {
+    "name": "大秦鐵路",
+    "sector": "Chinese Equities"
+  },
+  "601012.SS": {
+    "name": "隆基綠能",
+    "sector": "Chinese Equities"
+  },
+  "601088.SS": {
+    "name": "中國神華",
+    "sector": "Chinese Equities"
+  },
+  "601111.SS": {
+    "name": "中國國航",
+    "sector": "Chinese Equities"
+  },
+  "601138.SS": {
+    "name": "工業富聯",
+    "sector": "Chinese Equities"
+  },
+  "601166.SS": {
+    "name": "興業銀行",
+    "sector": "Chinese Equities"
+  },
+  "601211.SS": {
+    "name": "國泰君安",
+    "sector": "Chinese Equities"
+  },
+  "601225.SS": {
+    "name": "陝西煤業",
+    "sector": "Chinese Equities"
+  },
+  "601288.SS": {
+    "name": "農業銀行",
+    "sector": "Chinese Equities"
+  },
+  "601318.SS": {
+    "name": "中國平安",
+    "sector": "Chinese Equities"
+  },
+  "601328.SS": {
+    "name": "交通銀行",
+    "sector": "Chinese Equities"
+  },
+  "601390.SS": {
+    "name": "中國中鐵",
+    "sector": "Chinese Equities"
+  },
+  "601398.SS": {
+    "name": "中國工商銀行",
+    "sector": "Chinese Equities"
+  },
+  "601601.SS": {
+    "name": "中國太保",
+    "sector": "Chinese Equities"
+  },
+  "601628.SS": {
+    "name": "中國人壽",
+    "sector": "Chinese Equities"
+  },
+  "601633.SS": {
+    "name": "長城汽車",
+    "sector": "Chinese Equities"
+  },
+  "601658.SS": {
+    "name": "郵儲銀行",
+    "sector": "Chinese Equities"
+  },
+  "601668.SS": {
+    "name": "中國建築",
+    "sector": "Chinese Equities"
+  },
+  "601688.SS": {
+    "name": "華泰證券",
+    "sector": "Chinese Equities"
+  },
+  "601728.SS": {
+    "name": "中國電信",
+    "sector": "Chinese Equities"
+  },
+  "601800.SS": {
+    "name": "中國交建",
+    "sector": "Chinese Equities"
+  },
+  "601816.SS": {
+    "name": "京滬高鐵",
+    "sector": "Chinese Equities"
+  },
+  "601857.SS": {
+    "name": "中國石油",
+    "sector": "Chinese Equities"
+  },
+  "601888.SS": {
+    "name": "中國中免",
+    "sector": "Chinese Equities"
+  },
+  "601898.SS": {
+    "name": "中煤能源",
+    "sector": "Chinese Equities"
+  },
+  "601899.SS": {
+    "name": "紫金礦業",
+    "sector": "Chinese Equities"
+  },
+  "601919.SS": {
+    "name": "中遠海控",
+    "sector": "Chinese Equities"
+  },
+  "601939.SS": {
+    "name": "中國建設銀行",
+    "sector": "Chinese Equities"
+  },
+  "601985.SS": {
+    "name": "中國核電",
+    "sector": "Chinese Equities"
+  },
+  "601988.SS": {
+    "name": "中國銀行",
+    "sector": "Chinese Equities"
+  },
+  "601998.SS": {
+    "name": "中信銀行",
+    "sector": "Chinese Equities"
+  },
+  "603259.SS": {
+    "name": "藥明康德",
+    "sector": "Chinese Equities"
+  },
+  "603288.SS": {
+    "name": "海天味業",
+    "sector": "Chinese Equities"
+  },
+  "603501.SS": {
+    "name": "韋爾股份",
+    "sector": "Chinese Equities"
+  },
+  "7203.T": {
+    "name": "豐田汽車",
+    "sector": "Japanese Equities"
+  },
+  "6758.T": {
+    "name": "索尼集團",
+    "sector": "Japanese Equities"
+  },
+  "9984.T": {
+    "name": "軟銀集團",
+    "sector": "Japanese Equities"
+  },
+  "7974.T": {
+    "name": "任天堂",
+    "sector": "Japanese Equities"
+  },
+  "8306.T": {
+    "name": "三菱UFJ",
+    "sector": "Japanese Equities"
+  },
+  "6861.T": {
+    "name": "基恩斯",
+    "sector": "Japanese Equities"
+  },
+  "6098.T": {
+    "name": "瑞可利",
+    "sector": "Japanese Equities"
+  },
+  "9432.T": {
+    "name": "日本電信電話",
+    "sector": "Japanese Equities"
+  },
+  "8058.T": {
+    "name": "三菱商事",
+    "sector": "Japanese Equities"
+  },
+  "6981.T": {
+    "name": "村田製作所",
+    "sector": "Japanese Equities"
+  },
+  "6762.T": {
+    "name": "TDK",
+    "sector": "Japanese Equities"
+  },
+  "4063.T": {
+    "name": "信越化學",
+    "sector": "Japanese Equities"
+  },
+  "4502.T": {
+    "name": "武田藥品",
+    "sector": "Japanese Equities"
+  },
+  "9983.T": {
+    "name": "迅銷",
+    "sector": "Japanese Equities"
+  },
+  "8031.T": {
+    "name": "三井物產",
+    "sector": "Japanese Equities"
+  },
+  "8001.T": {
+    "name": "伊藤忠商事",
+    "sector": "Japanese Equities"
+  },
+  "6501.T": {
+    "name": "日立",
+    "sector": "Japanese Equities"
+  },
+  "6367.T": {
+    "name": "大金工業",
+    "sector": "Japanese Equities"
+  },
+  "6954.T": {
+    "name": "發那科",
+    "sector": "Japanese Equities"
+  },
+  "7267.T": {
+    "name": "本田汽車",
+    "sector": "Japanese Equities"
+  },
+  "005930.KS": {
+    "name": "三星電子",
+    "sector": "Korean Equities"
+  },
+  "000660.KS": {
+    "name": "SK海力士",
+    "sector": "Korean Equities"
+  },
+  "005380.KS": {
+    "name": "現代汽車",
+    "sector": "Korean Equities"
+  },
+  "035420.KS": {
+    "name": "NAVER",
+    "sector": "Korean Equities"
+  },
+  "051910.KS": {
+    "name": "LG化學",
+    "sector": "Korean Equities"
+  },
+  "207940.KS": {
+    "name": "三星生物製藥",
+    "sector": "Korean Equities"
+  },
+  "035720.KS": {
+    "name": "Kakao",
+    "sector": "Korean Equities"
+  },
+  "068270.KS": {
+    "name": "Celltrion",
+    "sector": "Korean Equities"
+  },
+  "005490.KS": {
+    "name": "POSCO",
+    "sector": "Korean Equities"
+  },
+  "028260.KS": {
+    "name": "三星物產",
+    "sector": "Korean Equities"
+  },
+  "105560.KS": {
+    "name": "KB金融",
+    "sector": "Korean Equities"
+  },
+  "012330.KS": {
+    "name": "現代摩比斯",
+    "sector": "Korean Equities"
+  },
+  "096770.KS": {
+    "name": "SK創新",
+    "sector": "Korean Equities"
+  },
+  "055550.KS": {
+    "name": "新韓金融",
+    "sector": "Korean Equities"
+  },
+  "000270.KS": {
+    "name": "起亞汽車",
+    "sector": "Korean Equities"
+  },
+  "034730.KS": {
+    "name": "SK集團",
+    "sector": "Korean Equities"
+  },
+  "032830.KS": {
+    "name": "三星生命",
+    "sector": "Korean Equities"
+  },
+  "015760.KS": {
+    "name": "韓國電力",
+    "sector": "Korean Equities"
+  },
+  "033780.KS": {
+    "name": "KT&G",
+    "sector": "Korean Equities"
+  },
+  "011200.KS": {
+    "name": "HMM",
+    "sector": "Korean Equities"
+  }
+}

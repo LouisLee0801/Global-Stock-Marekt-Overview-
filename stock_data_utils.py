@@ -479,7 +479,7 @@ THEME_NEWS_POOL = {
 }
 
 def generate_stock_news(symbol, name, sector):
-    """Generates rich purely business-oriented news and market themes (no technical analysis)."""
+    """Generates rich purely business-oriented news by fetching live data if missing from cache."""
     clean_sym = symbol.split(".")[0]
     
     # 1. Try loading real Google News headlines from the precalculated database
@@ -489,16 +489,26 @@ def generate_stock_news(symbol, name, sector):
     elif clean_sym in PROFILES_DB and PROFILES_DB[clean_sym].get("google_news"):
         news_text = PROFILES_DB[clean_sym]["google_news"]
         
-    if not news_text:
-        # 2. Fallback to local industry specific news rumors (100% news-oriented)
-        category = get_industry_category(symbol, sector)
-        pool = THEME_NEWS_POOL.get(category, THEME_NEWS_POOL["general"])
-        
-        # Stable selection based on symbol hash
-        sym_hash = sum(ord(c) for c in symbol)
-        news = pool[sym_hash % len(pool)]
-        chi_name = get_chinese_display_name(symbol, name)
-        news_text = news.format(name=chi_name, symbol=symbol)
+    if "市場關注其在" in news_text or not news_text:
+        # 2. Fetch real live news from Yahoo Finance / Google instead of using a template
+        try:
+            import yfinance as yf
+            news_items = yf.Ticker(symbol).news
+            if news_items:
+                titles = []
+                for item in news_items[:2]:
+                    title = item.get('title', '')
+                    publisher = item.get('publisher', 'News')
+                    if title:
+                        titles.append(f"• 【{publisher}】 {title}")
+                if titles:
+                    news_text = "\n".join(titles)
+        except:
+            pass
+            
+    if not news_text or "市場關注其在" in news_text:
+        # Final fallback if absolutely no news is found on the internet
+        news_text = f"• 【Market Update】 Tracking latest operational developments for {name} ({symbol}) in the {sector} sector."
         
     # Strip HTML tags like <b> and </b> and replace <br> with newlines so that
     # the Theme & News column displays as clean plain text in st.dataframe!

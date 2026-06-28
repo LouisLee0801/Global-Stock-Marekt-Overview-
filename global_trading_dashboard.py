@@ -1408,13 +1408,6 @@ gemini_key = st.sidebar.text_input(
 if st.sidebar.button("🔄 手動清除快取並強制更新", use_container_width=True, help="清除 Streamlit 下載快取並強制從 yfinance 重新抓取今天最新的市場行情與價格數據。"):
     st.cache_data.clear()
     st.cache_resource.clear()
-    # Delete ticker metadata cache if it exists
-    metadata_file = r"C:\Users\a0919\.gemini\antigravity\scratch\global_trading_dashboard\ticker_metadata_cache.json"
-    if os.path.exists(metadata_file):
-        try:
-            os.remove(metadata_file)
-        except:
-            pass
     st.sidebar.success("⚡ 快取已成功清除！正在重新載入最新行情...")
     import time
     time.sleep(1)
@@ -1547,21 +1540,21 @@ with tab1:
             us_actives = [f"{row['名稱']} ({row['代號']})" for _, row in top_turnover_df.head(3).iterrows()]
             us_gainers = [f"{row['名稱']} ({row['代號']}) {row['漲跌幅']:+.2f}%" for _, row in top_gainers_df.head(3).iterrows()]
             
-            # Formatting for display
+            # Use original numeric dataframe, and use column_config for formatting
             top_turnover_disp = top_turnover_df.copy()
-            top_turnover_disp["成交值"] = top_turnover_disp["成交值"].apply(lambda x: f"${x:,.0f}")
-            top_turnover_disp["漲跌幅"] = top_turnover_disp["漲跌幅"].apply(lambda x: f"{x:+.2f}%")
-            
             top_gainers_disp = top_gainers_df.copy()
-            top_gainers_disp["成交值"] = top_gainers_disp["成交值"].apply(lambda x: f"${x:,.0f}")
-            top_gainers_disp["漲跌幅"] = top_gainers_disp["漲跌幅"].apply(lambda x: f"{x:+.2f}%")
             
             sub_tab1, sub_tab2 = st.tabs(["🔥 當日成交值前 100 名排行榜 (主力資金沉澱核心)", "🚀 當日漲幅前 100 名排行榜 (強勢動能爆發個股)"])
             
             with sub_tab1:
                 # Render interactive dataframe with select callbacks
                 selection_turnover = st.dataframe(
-                    top_turnover_disp[["代號", "名稱", "收盤價", "漲跌幅", "成交值", "所屬產業", "Theme & News"]].style.apply(color_price_background, axis=1),
+                    top_turnover_disp[["代號", "名稱", "收盤價", "漲跌幅", "成交值", "所屬產業", "Theme & News"]],
+                    column_config={
+                        "收盤價": st.column_config.NumberColumn("收盤價", format="$%.2f"),
+                        "漲跌幅": st.column_config.NumberColumn("漲跌幅", format="%+.2f%%"),
+                        "成交值": st.column_config.NumberColumn("成交值", format="$%,.0f")
+                    },
                     use_container_width=True,
                     height=450,
                     hide_index=True,
@@ -1583,7 +1576,12 @@ with tab1:
                     
             with sub_tab2:
                 selection_gainer = st.dataframe(
-                    top_gainers_disp[["代號", "名稱", "收盤價", "漲跌幅", "成交值", "所屬產業", "Theme & News"]].style.apply(color_price_background, axis=1),
+                    top_gainers_disp[["代號", "名稱", "收盤價", "漲跌幅", "成交值", "所屬產業", "Theme & News"]],
+                    column_config={
+                        "收盤價": st.column_config.NumberColumn("收盤價", format="$%.2f"),
+                        "漲跌幅": st.column_config.NumberColumn("漲跌幅", format="%+.2f%%"),
+                        "成交值": st.column_config.NumberColumn("成交值", format="$%,.0f")
+                    },
                     use_container_width=True,
                     height=450,
                     hide_index=True,
@@ -1655,20 +1653,20 @@ with tab1:
                     else:
                         kr_actives, kr_gainers = movers_active, movers_gainers
                     
-                    # Format displays
+                    # Use original numeric dataframe, and use column_config for formatting
                     top_turnover_disp = top_turnover.copy()
-                    top_turnover_disp["成交值"] = top_turnover_disp["成交值"].apply(lambda x: f"${x:,.0f}" if "陸股" not in asia_selection else f"¥{x:,.0f}")
-                    top_turnover_disp["漲跌幅"] = top_turnover_disp["漲跌幅"].apply(lambda x: f"{x:+.2f}%")
-                    
                     top_gainers_disp = top_gainers.copy()
-                    top_gainers_disp["成交值"] = top_gainers_disp["成交值"].apply(lambda x: f"${x:,.0f}" if "陸股" not in asia_selection else f"¥{x:,.0f}")
-                    top_gainers_disp["漲跌幅"] = top_gainers_disp["漲跌幅"].apply(lambda x: f"{x:+.2f}%")
                     
                     sub_tab1, sub_tab2 = st.tabs(["🔥 當日成交值前 100 名排行榜 (資金主力集中)", "🚀 當日漲幅前 100 名排行榜 (強勢動能爆發)"])
                     
                     with sub_tab1:
                         selection_asia_turn = st.dataframe(
-                            top_turnover_disp[["代號", "名稱", "收盤價", "漲跌幅", "成交值", "所屬產業", "Theme & News"]].style.apply(color_price_background, axis=1),
+                            top_turnover_disp[["代號", "名稱", "收盤價", "漲跌幅", "成交值", "所屬產業", "Theme & News"]],
+                            column_config={
+                                "收盤價": st.column_config.NumberColumn("收盤價", format="%.2f"),
+                                "漲跌幅": st.column_config.NumberColumn("漲跌幅", format="%+.2f%%"),
+                                "成交值": st.column_config.NumberColumn("成交值", format="%,.0f")
+                            },
                             use_container_width=True,
                             height=450,
                             hide_index=True,
@@ -1690,7 +1688,12 @@ with tab1:
                         
                     with sub_tab2:
                         selection_asia_gain = st.dataframe(
-                            top_gainers_disp[["代號", "名稱", "收盤價", "漲跌幅", "成交值", "所屬產業", "Theme & News"]].style.apply(color_price_background, axis=1),
+                            top_gainers_disp[["代號", "名稱", "收盤價", "漲跌幅", "成交值", "所屬產業", "Theme & News"]],
+                            column_config={
+                                "收盤價": st.column_config.NumberColumn("收盤價", format="%.2f"),
+                                "漲跌幅": st.column_config.NumberColumn("漲跌幅", format="%+.2f%%"),
+                                "成交值": st.column_config.NumberColumn("成交值", format="%,.0f")
+                            },
                             use_container_width=True,
                             height=450,
                             hide_index=True,
@@ -1857,7 +1860,7 @@ with tab3:
                 strat_a_disp = strat_a_sorted.copy()
                 
                 selection_a = st.dataframe(
-                    strat_a_disp[cols_to_show].style.apply(color_price_background, axis=1), 
+                    strat_a_disp[cols_to_show], 
                     column_config={
                         "收盤價": st.column_config.NumberColumn("收盤價", format="$%.2f"),
                         "漲跌幅": st.column_config.NumberColumn("漲跌幅", format="%+.2f%%"),
@@ -1894,7 +1897,7 @@ with tab3:
                 strat_b_disp = strat_b_sorted.copy()
                 
                 selection_b = st.dataframe(
-                    strat_b_disp[cols_to_show].style.apply(color_price_background, axis=1), 
+                    strat_b_disp[cols_to_show], 
                     column_config={
                         "收盤價": st.column_config.NumberColumn("收盤價", format="$%.2f"),
                         "漲跌幅": st.column_config.NumberColumn("漲跌幅", format="%+.2f%%"),
@@ -3440,7 +3443,7 @@ with tab5:
             # Display actual recent rebalancing news
             news_info = ACTUAL_REBALANCE_NEWS.get(etf_code, {})
             if news_info:
-                with st.expander("📰 檢視該 ETF 最近期官方實際換股公告與異動名單 (Recent Rebalancing News)"):
+                with st.expander("📰 檢視該 ETF 最近期官方實際換股公告與異動名單 (Recent Rebalancing News)", expanded=False):
                     st.markdown(
                         f"<div style='background:#0f172a; border:1px solid #334155; padding:1.2rem; border-radius:8px; font-size:0.91rem; line-height:1.6; color:#cbd5e1;'>"
                         f"  <div style='display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:10px; border-bottom:1px solid #1e293b; padding-bottom:6px;'>"
@@ -3461,6 +3464,33 @@ with tab5:
                         f"</div>",
                         unsafe_allow_html=True
                     )
+            
+            # Display Forecast Additions and Deletions
+            if "additions" in etf_meta or "deletions" in etf_meta:
+                with st.expander("🔮 下期定審籌碼大換股預測清單 (Rebalancing Forecast)", expanded=True):
+                    st.markdown("<div style='margin-bottom: 15px; font-size: 0.95rem; color: #cbd5e1;'>基於市值、殖利率與財務指標計算，下期極具潛力新增或遭剔除/減碼之重點成分股：</div>", unsafe_allow_html=True)
+                    
+                    if "additions" in etf_meta and etf_meta["additions"]:
+                        st.markdown("<h6 style='color: #f87171; margin-bottom: 8px;'>📥 預測新增/加碼名單 (Potential In / Overweight)</h6>", unsafe_allow_html=True)
+                        for item in etf_meta["additions"]:
+                            st.markdown(
+                                f"<div style='background:rgba(255, 75, 75, 0.05); border-left: 3px solid #f87171; padding: 8px 12px; margin-bottom: 8px; border-radius: 4px; font-size: 0.9rem;'>"
+                                f"<b>{item['name']} ({item['symbol']})</b> - <span style='color:#f87171; font-size:0.85rem; font-weight:bold;'>[{item['flag']}]</span><br>"
+                                f"<span style='color: #94a3b8;'>{item['reason']}</span>"
+                                f"</div>",
+                                unsafe_allow_html=True
+                            )
+                            
+                    if "deletions" in etf_meta and etf_meta["deletions"]:
+                        st.markdown("<h6 style='color: #4ade80; margin-bottom: 8px; margin-top: 15px;'>📤 預測剔除/減碼名單 (Potential Out / Underweight)</h6>", unsafe_allow_html=True)
+                        for item in etf_meta["deletions"]:
+                            st.markdown(
+                                f"<div style='background:rgba(44, 160, 44, 0.05); border-left: 3px solid #4ade80; padding: 8px 12px; margin-bottom: 8px; border-radius: 4px; font-size: 0.9rem;'>"
+                                f"<b>{item['name']} ({item['symbol']})</b> - <span style='color:#4ade80; font-size:0.85rem; font-weight:bold;'>[{item['flag']}]</span><br>"
+                                f"<span style='color: #94a3b8;'>{item['reason']}</span>"
+                                f"</div>",
+                                unsafe_allow_html=True
+                            )
             
             # ==================== NEW FEATURE: DISPLAY CURRENT ETF HOLDINGS ====================
             st.markdown("<h5 style='color:#ffaa00; margin-top:1.5rem; margin-bottom:0.5rem;'>📋 現行前十大成分股持股與即時行情 (Current Holdings & Quotes)</h5>", unsafe_allow_html=True)
