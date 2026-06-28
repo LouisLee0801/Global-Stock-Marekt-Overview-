@@ -2086,7 +2086,7 @@ with tab4:
         </div>
         """, unsafe_allow_html=True)
 # ----------------- TAIWAN ETF CANDIDATES DATASET & DYNAMIC SCREENING -----------------
-TAIWAN_CANDIDATES = {
+BASE_TAIWAN_CANDIDATES = {
     "2603.TW": {"name": "長榮", "price": 210.0, "dividend": 16.0, "prev_div": 70.0, "eps_growth_3q": 15.2, "esg_rating": "BBB", "roe_ok": True},
     "3034.TW": {"name": "聯詠", "price": 605.0, "dividend": 25.0, "prev_div": 37.0, "eps_growth_3q": -2.1, "esg_rating": "AA", "roe_ok": True},
     "2303.TW": {"name": "聯電", "price": 55.0, "dividend": 2.6, "prev_div": 3.6, "eps_growth_3q": -12.4, "esg_rating": "AA", "roe_ok": True},
@@ -2096,8 +2096,8 @@ TAIWAN_CANDIDATES = {
     "2504.TW": {"name": "國產", "price": 52.5, "dividend": 2.1, "prev_div": 1.5, "eps_growth_3q": 8.5, "esg_rating": "BBB", "roe_ok": True},
     "2105.TW": {"name": "正新", "price": 52.5, "dividend": 1.8, "prev_div": 1.4, "eps_growth_3q": 12.1, "esg_rating": "A", "roe_ok": True},
     "8454.TW": {"name": "富邦媒", "price": 435.0, "dividend": 10.0, "prev_div": 12.8, "eps_growth_3q": 3.5, "esg_rating": "AA", "roe_ok": True},
-    "1319.TW": {"name": "東陽", "price": 105.0, "dividend": 4.0, "prev_div": 2.5, "eps_growth_3q": 18.2, "esg_rating": "BBB", "roe_ok": True},
-    "2211.TW": {"name": "長榮鋼", "price": 125.0, "dividend": 5.0, "prev_div": 5.0, "eps_growth_3q": 6.5, "esg_rating": "BBB", "roe_ok": True},
+    "1319.TW": {"name": "東陽", "price": 105.0, "dividend": 5.0, "prev_div": 2.5, "eps_growth_3q": 18.2, "esg_rating": "BBB", "roe_ok": True},
+    "2211.TW": {"name": "長榮鋼", "price": 125.0, "dividend": 6.5, "prev_div": 5.0, "eps_growth_3q": 6.5, "esg_rating": "BBB", "roe_ok": True},
     "2615.TW": {"name": "萬海", "price": 78.2, "dividend": 3.5, "prev_div": 5.0, "eps_growth_3q": 110.5, "esg_rating": "A", "roe_ok": True},
     "2404.TW": {"name": "漢唐", "price": 380.0, "dividend": 10.0, "prev_div": 15.0, "eps_growth_3q": -5.2, "esg_rating": "A", "roe_ok": True},
     "3231.TW": {"name": "緯創", "price": 115.0, "dividend": 5.5, "prev_div": 3.8, "eps_growth_3q": 48.0, "esg_rating": "AA", "roe_ok": True},
@@ -2116,6 +2116,27 @@ TAIWAN_CANDIDATES = {
 }
 
 # ----------------- TAIWAN ETF HOLDINGS DATASET (CURRENT TOP 10) -----------------
+
+@st.cache_data(ttl=1800)
+def get_live_taiwan_candidates():
+    try:
+        from stock_data_utils import fetch_live_taiwan_etf_candidates
+        return fetch_live_taiwan_etf_candidates(BASE_TAIWAN_CANDIDATES)
+    except:
+        return BASE_TAIWAN_CANDIDATES.copy()
+
+TAIWAN_CANDIDATES = get_live_taiwan_candidates()
+
+if "expert_overrides" not in st.session_state:
+    st.session_state["expert_overrides"] = {}
+
+for ticker, override_data in st.session_state["expert_overrides"].items():
+    if ticker in TAIWAN_CANDIDATES:
+        if override_data.get("dividend") is not None:
+            TAIWAN_CANDIDATES[ticker]["dividend"] = override_data["dividend"]
+        if override_data.get("eps_growth_3q") is not None:
+            TAIWAN_CANDIDATES[ticker]["eps_growth_3q"] = override_data["eps_growth_3q"]
+
 # ----------------- TAIWAN ETF HOLDINGS DATASET (PRE & POST REBALANCE 2026) -----------------
 TW_ETF_HOLDINGS_PRE = {
     "0050.TW": [
@@ -2892,6 +2913,42 @@ with tab5:
     </div>
     """, unsafe_allow_html=True)
     
+
+    # --- Expert Override UI ---
+    st.markdown("### ⚙️ 專家覆寫控制台 (Expert Override)")
+    st.caption("自動抓取的 EPS 與預測股利如不符內部預期，可在此手動校正，系統將瞬間重算換股權重！")
+    with st.expander("🛠️ 開啟專家參數覆寫", expanded=False):
+        c1, c2, c3 = st.columns([1.5, 1, 1])
+        with c1:
+            ovr_ticker = st.selectbox("選擇要覆寫的股票", ["無"] + [f"{k} - {v['name']}" for k, v in TAIWAN_CANDIDATES.items()])
+        
+        if ovr_ticker != "無":
+            t_key = ovr_ticker.split(" - ")[0]
+            curr_div = TAIWAN_CANDIDATES[t_key]["dividend"]
+            curr_eps = TAIWAN_CANDIDATES[t_key]["eps_growth_3q"]
+            with c2:
+                new_div = st.number_input(f"預估股利 (目前: {curr_div})", value=curr_div, step=0.1)
+            with c3:
+                new_eps = st.number_input(f"EPS成長預估 (目前: {curr_eps})", value=curr_eps, step=1.0)
+            
+            if st.button("💾 儲存並重算權重"):
+                if "expert_overrides" not in st.session_state:
+                    st.session_state["expert_overrides"] = {}
+                st.session_state["expert_overrides"][t_key] = {
+                    "dividend": new_div,
+                    "eps_growth_3q": new_eps
+                }
+                st.toast(f"✅ {ovr_ticker} 參數覆寫成功！重算中...")
+                st.rerun()
+                
+        if st.session_state.get("expert_overrides"):
+            st.markdown("#### 目前生效的覆寫清單")
+            for tk, tk_v in st.session_state["expert_overrides"].items():
+                st.write(f"- **{tk}**: 股利 {tk_v['dividend']} | EPS成長 {tk_v['eps_growth_3q']}")
+            if st.button("🗑️ 清除所有覆寫"):
+                st.session_state["expert_overrides"] = {}
+                st.rerun()
+    # --------------------------
     # 1. Define ETF Metadata
     tw_etf_meta = {
         "0050.TW": {

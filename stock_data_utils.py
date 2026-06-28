@@ -931,3 +931,50 @@ def get_detailed_stock_profile(symbol, name, sector, change_pct=None, turnover=N
         "report": dyn_report,
         "google_news": google_news_zh
     }
+
+def fetch_live_taiwan_etf_candidates(base_candidates):
+    import yfinance as yf
+    import concurrent.futures
+    import traceback
+    
+    updated_candidates = {}
+    
+    def process_ticker(symbol, meta):
+        try:
+            ticker = yf.Ticker(symbol)
+            info = ticker.info
+            
+            # Fetch live price
+            price = info.get('currentPrice', info.get('regularMarketPrice', meta.get('price', 0.0)))
+            
+            # Trailing EPS
+            trailing_eps = info.get('trailingEps', 0.0)
+            
+            # Dividend calculation
+            div_yield = info.get('dividendYield', None)
+            if div_yield is not None and price > 0:
+                dividend = price * div_yield
+            else:
+                dividend = meta.get('dividend', 0.0)
+                
+            # Update meta
+            meta_copy = meta.copy()
+            if price > 0:
+                meta_copy['price'] = round(price, 2)
+            meta_copy['trailing_eps'] = round(trailing_eps, 2) if trailing_eps else 0.0
+            
+            if div_yield is not None:
+                meta_copy['dividend'] = round(dividend, 2)
+                
+            return symbol, meta_copy
+        except Exception as e:
+            return symbol, meta
+            
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        futures = {executor.submit(process_ticker, k, v): k for k, v in base_candidates.items()}
+        for future in concurrent.futures.as_completed(futures):
+            k, updated_meta = future.result()
+            updated_candidates[k] = updated_meta
+            
+    return updated_candidates
+
