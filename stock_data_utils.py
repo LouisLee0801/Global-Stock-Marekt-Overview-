@@ -950,11 +950,12 @@ def fetch_live_taiwan_etf_candidates(base_candidates):
             # Trailing EPS
             trailing_eps = info.get('trailingEps', 0.0)
             
-            # Dividend calculation (Use dividendRate directly to avoid yield percentage bugs)
-            dividend = info.get('dividendRate', None)
-            if dividend is None:
-                dividend = info.get('trailingAnnualDividendRate', None)
-            if dividend is None:
+            # Dividend calculation (Prioritize trailing actuals over broken yfinance forward rates)
+            # yfinance's 'dividendRate' often extrapolates incorrectly for Taiwan stocks.
+            dividend = info.get('trailingAnnualDividendRate', None)
+            if dividend is None or dividend == 0:
+                dividend = info.get('dividendRate', None)
+            if dividend is None or dividend == 0:
                 dividend = meta.get('dividend', 0.0)
                 
             # Update meta
