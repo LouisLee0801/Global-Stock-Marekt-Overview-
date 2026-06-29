@@ -950,11 +950,11 @@ def fetch_live_taiwan_etf_candidates(base_candidates):
             # Trailing EPS
             trailing_eps = info.get('trailingEps', 0.0)
             
-            # Dividend calculation
-            div_yield = info.get('dividendYield', None)
-            if div_yield is not None and price > 0:
-                dividend = price * div_yield
-            else:
+            # Dividend calculation (Use dividendRate directly to avoid yield percentage bugs)
+            dividend = info.get('dividendRate', None)
+            if dividend is None:
+                dividend = info.get('trailingAnnualDividendRate', None)
+            if dividend is None:
                 dividend = meta.get('dividend', 0.0)
                 
             # Update meta
@@ -962,9 +962,7 @@ def fetch_live_taiwan_etf_candidates(base_candidates):
             if price > 0:
                 meta_copy['price'] = round(price, 2)
             meta_copy['trailing_eps'] = round(trailing_eps, 2) if trailing_eps else 0.0
-            
-            if div_yield is not None:
-                meta_copy['dividend'] = round(dividend, 2)
+            meta_copy['dividend'] = round(dividend, 2)
                 
             return symbol, meta_copy
         except Exception as e:

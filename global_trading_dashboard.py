@@ -2118,14 +2118,14 @@ BASE_TAIWAN_CANDIDATES = {
 # ----------------- TAIWAN ETF HOLDINGS DATASET (CURRENT TOP 10) -----------------
 
 @st.cache_data(ttl=1800)
-def get_live_taiwan_candidates():
+def get_live_taiwan_candidates_v2():
     try:
         from stock_data_utils import fetch_live_taiwan_etf_candidates
         return fetch_live_taiwan_etf_candidates(BASE_TAIWAN_CANDIDATES)
     except:
         return BASE_TAIWAN_CANDIDATES.copy()
 
-TAIWAN_CANDIDATES = get_live_taiwan_candidates()
+TAIWAN_CANDIDATES = get_live_taiwan_candidates_v2()
 
 if "expert_overrides" not in st.session_state:
     st.session_state["expert_overrides"] = {}
